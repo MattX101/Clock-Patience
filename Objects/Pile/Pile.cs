@@ -1,7 +1,4 @@
-﻿using ClockPatience.Data;
-using System;
-
-namespace ClockPatience.Objects.Pile
+﻿namespace ClockPatience.Objects.Pile
 {
     internal class Pile
     {
@@ -22,16 +19,13 @@ namespace ClockPatience.Objects.Pile
             cards[index] = card;
         }
 
+        /// <summary>
+        /// Prints every Card present on pile
+        /// </summary>
         public void PrintCards()
         {
             foreach (Card card in cards)
                 card.Print();
-        }
-
-        public void GetMapValue()
-        {
-            foreach (Card card in cards)
-                Console.Write(PileMapping.Instance.Map[card.Rank] + " ");
         }
     }
 }

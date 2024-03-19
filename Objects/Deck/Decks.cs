@@ -22,6 +22,11 @@
             _decks = new Deck[numOfDecks];
         }
 
+        /// <summary>
+        /// Takes a deck and assigns it to the array
+        /// </summary>
+        /// <param name="deckToAssign"></param>
+        /// <param name="index"></param>
         public void AssignDeck(Deck deckToAssign, int index)
         {
             _decks[index] = deckToAssign;
@@ -32,6 +37,9 @@
                 _totalNumOfCards += _decks[index].cards.Length;
         }
 
+        /// <summary>
+        /// Loops through every single deck and prints every card Rank and Suit
+        /// </summary>
         public void PrintDecks()
         {
             foreach (Deck deck in _decks)

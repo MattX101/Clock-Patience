@@ -19,6 +19,9 @@ namespace ClockPatience.Data
             }
         }
 
+        /// <summary>
+        /// Used to convert a card Rank into a number
+        /// </summary>
         public readonly Dictionary<char, int> Map = new Dictionary<char, int>()
         {
             {'A', 0},

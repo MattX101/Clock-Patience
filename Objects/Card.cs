@@ -24,6 +24,9 @@ namespace ClockPatience.Objects
             _suit = suit;
         }
 
+        /// <summary>
+        /// Prints the rank and suit of the card
+        /// </summary>
         public void Print()
         {
             Console.Write(char.ToString(_rank) + char.ToString(_suit) + " ");

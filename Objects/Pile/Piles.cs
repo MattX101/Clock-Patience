@@ -21,6 +21,7 @@ namespace ClockPatience.Objects.Pile
             for (int i = 0; i < piles.Length; i++)
                 AssignPile(totalNumOfCards, numOfCardsPerDeck, numOfDecks, i);
 
+            // Prints all cards that have the same Rank as the array value
             for (int i = 0; i < piles.Length; i++)
             {
                 Console.Write("{0} - ", ValidRanks.Instance.Ranks[i]);

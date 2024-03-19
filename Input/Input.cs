@@ -19,6 +19,10 @@ namespace ClockPatience.DataInput
             }
         }
 
+        /// <summary>
+        /// Reads the input from the terminal
+        /// </summary>
+        /// <returns></returns>
         public string Enter()
         {
             return Console.ReadLine();

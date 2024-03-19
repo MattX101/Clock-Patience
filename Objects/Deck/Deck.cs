@@ -11,6 +11,10 @@ namespace ClockPatience.Objects.Deck
 
         public bool IsDeckValid = true;
 
+        /// <summary>
+        /// Input is entered by the user.
+        /// </summary>
+        /// <param name="numOfCards"></param>
         public Deck(int numOfCards)
         {
             cards = new Card[numOfCards];
@@ -28,6 +32,11 @@ namespace ClockPatience.Objects.Deck
             Console.WriteLine("");
         }
 
+        /// <summary>
+        /// Input had be Predetermined
+        /// </summary>
+        /// <param name="numOfCards"></param>
+        /// <param name="input"></param>
         public Deck(int numOfCards, string input)
         {
             cards = new Card[numOfCards];
@@ -41,6 +50,10 @@ namespace ClockPatience.Objects.Deck
             Console.WriteLine("");
         }
 
+        /// <summary>
+        /// Parses an array of strings and adds them to the array.
+        /// </summary>
+        /// <param name="values"></param>
         public void AddCards(string[] values)
         {
             for (int i = 0; i < values.Length; i++)
@@ -51,6 +64,8 @@ namespace ClockPatience.Objects.Deck
                 IsDeckValid ? "" : "not ");
         }
 
+        /// <param name="value"></param>
+        /// <returns>Returns a Card if valid</returns>
         private Card AddCard(string value)
         {
             Console.WriteLine(value);
@@ -63,6 +78,7 @@ namespace ClockPatience.Objects.Deck
                 return null;
             }
 
+            // Both booleans need to be true to return a valid Card, else null is returned
             bool rankIsValid = CardValidator.ValidateChar(value[0], ValidRanks.Instance.Ranks, "Rank");
             bool suitIsValid = CardValidator.ValidateChar(value[1], ValidSuits.Instance.Suits, "Suit");
 
@@ -73,6 +89,9 @@ namespace ClockPatience.Objects.Deck
             return null;
         }
 
+        /// <summary>
+        /// Loops through deck and prints every card Rank and Suit
+        /// </summary>
         public void PrintDeck()
         {
             foreach (Card card in cards)

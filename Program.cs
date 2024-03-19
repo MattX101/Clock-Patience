@@ -1,5 +1,6 @@
 ﻿using System;
 using ClockPatience.Data;
+using ClockPatience.DataInput;
 using ClockPatience.Objects;
 using ClockPatience.Objects.Deck;
 using ClockPatience.Objects.Pile;
@@ -17,8 +18,9 @@ namespace ClockPatience
 
         static void Main(string[] args)
         {
-            PredefinedOutcome();
+            ChooseInput();
 
+            // If a single deck is invalid then the game will not start
             if (!_decks.AllDecksAreValid)
             {
                 Console.WriteLine("All decks must be valid before they could be printed!");
@@ -40,6 +42,26 @@ namespace ClockPatience
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// If 1 is pressed then the input will be entered manually.
+        /// </summary>
+        private static void ChooseInput()
+        {
+            Console.WriteLine("Press 1 to enter the input manually");
+            Console.WriteLine("Otherwise a predefined outcome will play out");
+
+            string choice = Input.Instance.Enter();
+
+            if (choice.Equals(""))
+                PredefinedOutcome();
+            else
+                if (choice[0].Equals('1'))
+                UserInput();
+            else
+                PredefinedOutcome();
+            Console.WriteLine("");
+        }
+
         private static void UserInput()
         {
             for (int i = 0; i < _numOfDecks; i++)
@@ -59,6 +81,9 @@ namespace ClockPatience
             _decks.AssignDeck(new Deck(_numOfCardsPerDeck, deck4), 3);
         }
 
+        /// <summary>
+        /// Plays the game and will not stop untill one pile has all its cards exposed
+        /// </summary>
         private static void Play()
         {
             Console.WriteLine("Order of exposed cards");

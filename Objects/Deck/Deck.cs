@@ -3,7 +3,7 @@ using ClockPatience.Validators;
 using ClockPatience.Data;
 using ClockPatience.DataInput;
 
-namespace ClockPatience.Objects
+namespace ClockPatience.Objects.Deck
 {
     internal class Deck
     {
@@ -20,8 +20,23 @@ namespace ClockPatience.Objects
             Console.WriteLine("");
 
             string[] values = InputValidator.ValidateSplitArray(deckInput);
-            if (DeckValidator.ValidateDeck(values, numOfCards))
-                AddCards(values);
+            if (!DeckValidator.ValidateDeck(values, numOfCards))
+                IsDeckValid = false;
+            
+            AddCards(values);
+
+            Console.WriteLine("");
+        }
+
+        public Deck(int numOfCards, string input)
+        {
+            cards = new Card[numOfCards];
+
+            string[] values = InputValidator.ValidateSplitArray(input);
+            if (!DeckValidator.ValidateDeck(values, numOfCards))
+                IsDeckValid = false;
+
+            AddCards(values);
 
             Console.WriteLine("");
         }

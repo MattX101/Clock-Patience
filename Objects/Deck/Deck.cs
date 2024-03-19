@@ -1,7 +1,7 @@
 ﻿using System;
 using ClockPatience.Validators;
-using ClockPatience.Data;
 using ClockPatience.DataInput;
+using ClockPatience.Data;
 
 namespace ClockPatience.Objects.Deck
 {
@@ -11,12 +11,12 @@ namespace ClockPatience.Objects.Deck
 
         public bool IsDeckValid = true;
 
-        public Deck(int numOfCards, Input input)
+        public Deck(int numOfCards)
         {
             cards = new Card[numOfCards];
-
+            
             Console.Write("Enter Deck of cards: ");
-            string deckInput = input.Enter().ToUpper();
+            string deckInput = Input.Instance.Enter().ToUpper();
             Console.WriteLine("");
 
             string[] values = InputValidator.ValidateSplitArray(deckInput);
@@ -63,8 +63,8 @@ namespace ClockPatience.Objects.Deck
                 return null;
             }
 
-            bool rankIsValid = CardValidator.ValidateChar(value[0], ValidRanks.Ranks, "Rank");
-            bool suitIsValid = CardValidator.ValidateChar(value[1], ValidSuits.Suits, "Suit");
+            bool rankIsValid = CardValidator.ValidateChar(value[0], ValidRanks.Instance.Ranks, "Rank");
+            bool suitIsValid = CardValidator.ValidateChar(value[1], ValidSuits.Instance.Suits, "Suit");
 
             if (rankIsValid && suitIsValid)
                 return new Card(value[0], value[1]);

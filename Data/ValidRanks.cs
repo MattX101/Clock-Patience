@@ -2,10 +2,24 @@
 {
     internal class ValidRanks
     {
-        public static readonly char[] Ranks = new char[]
+        private ValidRanks() { }
+
+        private static ValidRanks instance = null;
+
+        public static ValidRanks Instance
         {
-            'K', 'Q', 'A', 'J', 'T',
-            '2', '3', '4', '5', '6', '7', '8', '9',
+            get
+            {
+                if (instance == null)
+                    instance = new ValidRanks();
+
+                return instance;
+            }
+        }
+
+        public readonly char[] Ranks = new char[]
+        {
+            'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'
         };
     }
 }

@@ -3,6 +3,7 @@
     internal class Decks
     {
         private Deck[] _decks;
+
         public Deck[] DecksObject
         {
             get => _decks;

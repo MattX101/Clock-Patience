@@ -2,9 +2,24 @@
 
 namespace ClockPatience.Data
 {
-    internal static class PileMapping
+    internal class PileMapping
     {
-        public static readonly Dictionary<char, int> Map = new Dictionary<char, int>()
+        private PileMapping() { }
+
+        private static PileMapping instance = null;
+
+        public static PileMapping Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new PileMapping();
+
+                return instance;
+            }
+        }
+
+        public readonly Dictionary<char, int> Map = new Dictionary<char, int>()
         {
             {'A', 0},
             {'2', 1},

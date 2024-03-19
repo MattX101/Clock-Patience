@@ -31,7 +31,7 @@ namespace ClockPatience.Objects.Pile
         public void GetMapValue()
         {
             foreach (Card card in cards)
-                Console.Write(PileMapping.Map[card.Rank] + " ");
+                Console.Write(PileMapping.Instance.Map[card.Rank] + " ");
         }
     }
 }

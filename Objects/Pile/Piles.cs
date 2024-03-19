@@ -1,4 +1,5 @@
 ﻿using System;
+using ClockPatience.Data;
 using ClockPatience.Objects.Deck;
 
 namespace ClockPatience.Objects.Pile
@@ -8,11 +9,6 @@ namespace ClockPatience.Objects.Pile
         public Pile[] piles;
 
         private Decks _decks;
-
-        char[] ids = new char[13]
-        {
-            'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'
-        };
 
         public Piles(int numOfPiles, Decks decks)
         {
@@ -27,7 +23,7 @@ namespace ClockPatience.Objects.Pile
 
             for (int i = 0; i < piles.Length; i++)
             {
-                Console.Write("{0} - ", ids[i]);
+                Console.Write("{0} - ", ValidRanks.Instance.Ranks[i]);
                 piles[i].PrintCards();
                 Console.WriteLine("");
             }
@@ -35,7 +31,7 @@ namespace ClockPatience.Objects.Pile
 
         private void AssignPile(int totalNumOfCards, int numOfCardsPerDeck, int numOfDecks, int i)
         {
-            piles[i] = new Pile(totalNumOfCards / numOfCardsPerDeck, ids[i]);
+            piles[i] = new Pile(totalNumOfCards / numOfCardsPerDeck, ValidRanks.Instance.Ranks[i]);
 
             for (int j = 0; j < numOfDecks; j++)
                 piles[i].AssignCard(_decks.DecksObject[j].cards[i], j);

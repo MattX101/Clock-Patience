@@ -1,6 +1,5 @@
 ﻿using System;
 using ClockPatience.Data;
-using ClockPatience.DataInput;
 using ClockPatience.Objects;
 using ClockPatience.Objects.Deck;
 using ClockPatience.Objects.Pile;
@@ -9,8 +8,6 @@ namespace ClockPatience
 {
     internal class Program
     {
-        private static Input input = new Input();
-
         private static int _numOfDecks = 4;
         private static int _numOfCardsPerDeck = 13;
         private static int _numOfPile = 13;
@@ -46,7 +43,7 @@ namespace ClockPatience
         private static void UserInput()
         {
             for (int i = 0; i < _numOfDecks; i++)
-                _decks.AssignDeck(new Deck(_numOfCardsPerDeck, input), i);
+                _decks.AssignDeck(new Deck(_numOfCardsPerDeck), i);
         }
 
         private static void PredefinedOutcome()
@@ -85,7 +82,7 @@ namespace ClockPatience
                 }
                 else
                 {
-                    index = PileMapping.Map[current.Rank];
+                    index = PileMapping.Instance.Map[current.Rank];
                     unexposedIndex = _piles.piles[index].currentExposedCard;
                     current = _piles.piles[index].cards[unexposedIndex];
                 }

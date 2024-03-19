@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\PileMapping.cs" />
     <Compile Include="Data\ValidRanks.cs" />
     <Compile Include="Data\ValidSuits.cs" />
     <Compile Include="Input\Input.cs" />

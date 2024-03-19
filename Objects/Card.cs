@@ -6,6 +6,18 @@ namespace ClockPatience.Objects
     {
         private char _rank, _suit;
 
+        public char Rank
+        {
+            get => _rank;
+        }
+
+        public char Suit
+        {
+            get => _suit;
+        }
+
+        public bool Exposed = false;
+
         public Card(char rank, char suit)
         {
             _rank = rank;

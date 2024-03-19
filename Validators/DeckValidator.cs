@@ -4,13 +4,11 @@ namespace ClockPatience.Validators
 {
     internal class DeckValidator
     {
-        private static byte requiredCount = 13;
-
-        public static bool ValidateDeck(string[] cards)
+        public static bool ValidateDeck(string[] cards, int validCardCount)
         {
-            if (cards.Length != requiredCount)
+            if (cards.Length != validCardCount)
             {
-                Console.WriteLine(("{0} cards must be entered! " + cards.Length + " were entered!\n"), requiredCount);
+                Console.WriteLine(("{0} cards must be entered! " + cards.Length + " were entered!\n"), validCardCount);
                 return false;
             }
 

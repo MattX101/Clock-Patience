@@ -1,6 +1,7 @@
 ﻿using System;
 using ClockPatience.Validators;
 using ClockPatience.Data;
+using ClockPatience.DataInput;
 
 namespace ClockPatience.Objects
 {
@@ -8,48 +9,60 @@ namespace ClockPatience.Objects
     {
         public Card[] cards;
 
-        private bool _deckIsValid = true;
-        public bool IsDeckValid
-        { 
-            get => _deckIsValid;  
-        }
+        public bool IsDeckValid = true;
 
-        public Deck(int numOfCards)
+        public Deck(int numOfCards, Input input)
         {
             cards = new Card[numOfCards];
+
+            Console.Write("Enter Deck of cards: ");
+            string deckInput = input.Enter().ToUpper();
+            Console.WriteLine("");
+
+            string[] values = InputValidator.ValidateSplitArray(deckInput);
+            if (DeckValidator.ValidateDeck(values, numOfCards))
+                AddCards(values);
+
+            Console.WriteLine("");
         }
 
-        public void AddCards(string[] cards)
+        public void AddCards(string[] values)
         {
-            for (int i = 0; i < cards.Length; i++)
-                this.cards[i] = AddCard(cards[i]);
+            for (int i = 0; i < values.Length; i++)
+                cards[i] = AddCard(values[i]);
 
             Console.WriteLine(
                 "\nDeck was {0}valid\n",
-                _deckIsValid ? "" : "not ");
+                IsDeckValid ? "" : "not ");
         }
 
-        private Card AddCard(string card)
+        private Card AddCard(string value)
         {
-            Console.WriteLine(card);
+            Console.WriteLine(value);
 
-            if (card.Length != 2)
+            if (value.Length != 2)
             {
-                _deckIsValid = false;
-                Console.WriteLine(card + " is not valid. Must be of length 2!");
+                IsDeckValid = false;
+                Console.WriteLine(value + " is not valid. Must be of length 2!");
 
                 return null;
             }
 
-            bool rankIsValid = CardValidator.ValidateChar(card[0], ValidRanks.Ranks, "Rank");
-            bool suitIsValid = CardValidator.ValidateChar(card[1], ValidSuits.Suits, "Suit");
-            
+            bool rankIsValid = CardValidator.ValidateChar(value[0], ValidRanks.Ranks, "Rank");
+            bool suitIsValid = CardValidator.ValidateChar(value[1], ValidSuits.Suits, "Suit");
+
             if (rankIsValid && suitIsValid)
-                return new Card(card[0], card[1]);
+                return new Card(value[0], value[1]);
 
-            _deckIsValid = false;
-
+            IsDeckValid = false;
             return null;
+        }
+
+        public void PrintDeck()
+        {
+            foreach (Card card in cards)
+                card.Print();
+            Console.WriteLine("");
         }
     }
 }

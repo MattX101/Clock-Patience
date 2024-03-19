@@ -1,4 +1,6 @@
-﻿namespace ClockPatience.Objects
+﻿using System;
+
+namespace ClockPatience.Objects
 {
     internal class Card
     {
@@ -8,6 +10,11 @@
         {
             _rank = rank;
             _suit = suit;
+        }
+
+        public void Print()
+        {
+            Console.Write(char.ToString(_rank) + char.ToString(_suit) + " ");
         }
     }
 }

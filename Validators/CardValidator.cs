@@ -16,7 +16,7 @@ namespace ClockPatience.Validators
                 return false;
             }
 
-            return valid;
+            return true;
         }
     }
 }

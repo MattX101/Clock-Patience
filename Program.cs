@@ -1,7 +1,6 @@
 ﻿using System;
 using ClockPatience.DataInput;
 using ClockPatience.Objects;
-using ClockPatience.Validators;
 
 namespace ClockPatience
 {
@@ -11,17 +10,22 @@ namespace ClockPatience
         {
             Input input = new Input();
 
-            Console.Write("Enter Deck of cards: ");
-            string deckInput = input.Enter().ToUpper();
-            Console.WriteLine("");
+            int numOfDecks = 4;
+            int numOfCardsPerDeck = 13;
 
-            string[] cards = InputValidator.ValidateSplitArray(deckInput);
-            if (DeckValidator.ValidateDeck(cards))
-            {
-                Deck deck = new Deck(cards.Length);
-                deck.AddCards(cards);
-            }
+            Decks decks = new Decks(numOfDecks);
+            decks.AssignDecks(
+                new Deck[] 
+                {
+                    new Deck(numOfCardsPerDeck, input),
+                    new Deck(numOfCardsPerDeck, input),
+                    new Deck(numOfCardsPerDeck, input),
+                    new Deck(numOfCardsPerDeck, input)
+                });
 
+            decks.PrintDecks();
+
+            Console.WriteLine("Press any key to exit application...");
             Console.ReadKey();
         }
     }

@@ -1,124 +1,74 @@
-﻿using System;
+﻿using ClockPatience.Objects;
+using System;
 using System.Text.RegularExpressions;
 
 namespace ClockPatience
 {
     internal class Program
     {
-        private static char[] _validRanks = new char[]
-        {
-            'K', 'Q', 'A', 'J', 'T',
-            '2', '3', '4', '5', '6', '7', '8', '9',
-        };
-
-        private static char[] _validSuits = new char[]
-        {
-            'H', 'D', 'C', 'S'
-        };
-
         static void Main(string[] args)
         {
             Console.Write("Enter Deck of cards: ");
-            string deck = Console.ReadLine();
-            deck = deck.ToUpper();
-
-            Console.WriteLine(
-                "Deck was {0}valid",
-                !ValidateDeck(deck) ? "not " : "");
+            ValidateDeck(InputDeck());
 
             Console.ReadKey();
         }
 
-        private static bool ValidateDeck(string deck)
+        private static string InputDeck()
         {
-            bool deckIsValid = true;
+            return Console.ReadLine().ToUpper();
+        }
 
-            string[] cards = ValidateSplitArray(deck);
+        private static bool ValidateDeck(string input)
+        {
+            string[] cards = ValidateSplitArray(input);
 
             if (cards.Length != 13)
             {
-                deckIsValid = false;
-                Console.WriteLine("13 cards must be entered! " + cards.Length + " were entered");
-                Console.WriteLine("");
+                Console.WriteLine("13 cards must be entered! " + cards.Length + " were entered!\n");
+                return false;
             }
 
-            foreach (string card in cards)
-            {
-                Console.WriteLine(card);
+            Deck deck = new Deck(cards.Length);
+            deck.AddCards(cards);
 
-                if (card.Length != 2)
-                {
-                    deckIsValid = false;
-                    Console.WriteLine(card + " is not valid. Must be of length 2!");
-                }
-                else
-                {
-                    if (!ValidateRank(card[0]))
-                    {
-                        deckIsValid = false;
-                        Console.WriteLine(card[0] + " is not a valid rank!");
-                    }
-                    if (!ValidateSuit(card[1]))
-                    {
-                        deckIsValid = false;
-                        Console.WriteLine(card[1] + " is not a valid suit!");
-                    }
-                }
-            }
-            Console.WriteLine("");
-
-            if (deckIsValid)
-                foreach (string s in cards)
-                    Console.Write(s + " ");
-            Console.WriteLine("");
-
-            return deckIsValid;
+            return deck.IsDeckValid;
         }
 
-        private static string[] ValidateSplitArray(string deck)
+        private static string[] ValidateSplitArray(string input)
         {
-            string[] strings = deck.Split(' ');
+            string[] strings = input.Split(' ');
             string[] cards = new string[strings.Length];
 
             int i = 0;
             foreach (string s in strings)
             {
-                if (ValidateString(s))
+                if (!ValidateString(s))
+                {
+                    Console.WriteLine(s + " is invalid, only letters or numbers are allowed!");
+                }
+                else
                 {
                     cards[i] = s;
                     i++;
                 }
             }
 
-            Console.WriteLine(strings.Length - i + " invalid strings were!");
+            int invalidStrings = strings.Length - i;
+            Console.WriteLine(invalidStrings + " invalid {0} removed!\n", 
+                invalidStrings == 1 ? 
+                "string was" : 
+                "strings were");
+
             Array.Resize(ref cards, i);
             strings = null;
 
             return cards;
         }
+
         private static bool ValidateString(string value)
         {
             return Regex.IsMatch(value, @"^[a-zA-Z0-9]+$");
-        }
-
-        private static bool ValidateRank(char rank)
-        {
-            bool rankIsValid = false;
-
-            foreach (char validChar in _validRanks)
-                rankIsValid = rank.Equals(validChar) ? true : rankIsValid;
-
-            return rankIsValid;
-        }
-
-        private static bool ValidateSuit(char suit)
-        {
-            bool suitIsValid = false;
-
-            foreach (char validSuit in _validSuits)
-                suitIsValid = suit.Equals(validSuit) ? true : suitIsValid;
-
-            return suitIsValid;
         }
     }
 }
